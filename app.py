@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 
 #################################################
@@ -26,12 +27,13 @@ Spotify = Base.classes.spotify
 # Flask Setup
 #################################################
 app = Flask(__name__)
+CORS(app)
 
 
 #################################################
 # Flask Routes
 #################################################
-@app.route("/")
+@app.route("/data")
 def welcome():
     # Create our session (link) from Python to the DB
     session = Session(engine)

@@ -7,11 +7,11 @@ function init() {
 
     songData.then(function(data) {
         data.forEach((d) => {
-            var songs = d.title;
+            var song = d.title;
                 selector
                 .append('option')
-                .text(songs)
-                .property('value', songs);
+                .text(song)
+                .property('value', song);
         })
     });
 }

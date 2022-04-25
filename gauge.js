@@ -36,56 +36,57 @@ function metadataTable(songTitle) {
             infoBox.append('p').text(`${key}: ${value}`);
         });
         infoBoxTitle.text(`${selectedSong.artist} - ${selectedSong.title}`);
+         
+        
+        // Gauge Chart
+ var gaugeDisplay = d3.select("#gauge");
+ gaugeDisplay.html(""); 
+ var decibel = selectedSong.dB;
+
+var gaugeData = [
+ {
+   domain: { x: [0, 1], y: [0, 1] },
+   value: decibel,
+   title: { text: "<b>Loudness! </b><br> In Decibels" },
+   type: "indicator",
+   mode: "gauge+number",     
+    gauge: {
+    axis: { range: [-12,0] },
+    bar: { color: "F5EED5" },
+    steps: [
+     { range: [-12, -11], color: "#33cc33" },
+     { range: [-11, -10], color: "#66ff33" },
+     { range: [-10, -9], color: "#99ff33" },
+     { range: [-9, -8], color: "#ccff66" },
+     { range: [-8, -7], color: "#ccff33" },
+     { range: [-7, -6], color: "#ffff66" },
+     { range: [-6,-5], color: "#ffff00" },
+     { range: [-5,-4], color: "#ffcc66" },
+     { range: [-4, -3], color: "#ff9933" },
+     { range: [-3, -2], color: "#ff6600" },
+     { range: [-2, -1], color: "#ff3300" },
+     { range: [-1, 0], color: "#ff0000" }
+    
+             ],
+    threshold: {
+       value: decibel
+     }
+   }
+ }
+]; 
+var gaugeLayout = {  width: 600, 
+                height: 400, 
+                margin: { t: 0, b: 0 }, 
+                 };
+
+Plotly.newPlot('gauge', gaugeData, gaugeLayout); 
     });
 }
 // Feed user selection into functions
 function optionChanged(songTitle) {
     metadataTable(songTitle);
 }
-//Gauge
-function buildGauge(dB) {
-    var gauge = d3.select('#gauge');
-    gauge.html('');
-
-    var ggData = [{
-        domain: {x: [0, 1], y: [0, 1]},
-        value: wfreq,
-        title: '<b>Loudness</b><br>In decibels',
-        type: 'indicator',
-        mode: 'gauge+number',
-        gauge: {
-            axis: {range: [null, 9]},
-            steps: [
-                {range: [0, 1], color: '#f9f2ec'},
-                {range: [1, 2], color: '#f5f0e4'},
-                {range: [2, 3], color: '#e9e7c8'},
-                {range: [3, 4], color: '#e4e9b0'},
-                {range: [4, 5], color: '#d5e599'},
-                {range: [5, 6], color: '#b7cc8e'},
-                {range: [6, 7], color: '#8ac187'},
-                {range: [7, 8], color: '#89bc8d'},
-                {range: [8, 9], color: '#85b588'}
-            ],
-            threshold: {
-                line: {color: 'red', width: 4},
-                thickness: 0.75,
-                value: wfreq
-            }
-        }
-    }];
-
-    var layout = {
-        width: 550,
-        height: 400,
-        margin: {
-            t: 0,
-            b: 0
-        }
-    };
-    Plotly.newPlot('gauge', ggData, layout);
-};
-
-
+//init function
 function init() {
     var selector = d3.select('#selDataset');
 

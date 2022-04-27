@@ -1,6 +1,7 @@
 
 var url = "http://127.0.0.1:5000/data";
-songData = d3.json(url)
+var json = "/data/data.json"
+songData = d3.json(json)
 
 // Function to generate metadata table
 function metadataTable(songTitle) {
@@ -41,42 +42,44 @@ function metadataTable(songTitle) {
         // Gauge Chart
  var gaugeDisplay = d3.select("#gauge");
  gaugeDisplay.html(""); 
- var decibel = selectedSong.dB;
+ var bpm = selectedSong.bpm;
 
 var gaugeData = [
  {
    domain: { x: [0, 1], y: [0, 1] },
-   value: decibel,
-   title: { text: "<b>Loudness! </b><br> In Decibels" },
+   value: bpm,
+   title: { text: "<b>Speed! </b><br> In BPM" },
    type: "indicator",
    mode: "gauge+number",     
     gauge: {
-    axis: { range: [-12,0] },
-    bar: { color: "F5EED5" },
+    axis: { range: [70,210] },
+    bar: { color: "ECEBE8" },
     steps: [
-     { range: [-12, -11], color: "#33cc33" },
-     { range: [-11, -10], color: "#66ff33" },
-     { range: [-10, -9], color: "#99ff33" },
-     { range: [-9, -8], color: "#ccff66" },
-     { range: [-8, -7], color: "#ccff33" },
-     { range: [-7, -6], color: "#ffff66" },
-     { range: [-6,-5], color: "#ffff00" },
-     { range: [-5,-4], color: "#ffcc66" },
-     { range: [-4, -3], color: "#ff9933" },
-     { range: [-3, -2], color: "#ff6600" },
-     { range: [-2, -1], color: "#ff3300" },
-     { range: [-1, 0], color: "#ff0000" }
+     { range: [70, 80], color: "#33cc33" },
+     { range: [80, 90], color: "#66ff33" },
+     { range: [90, 100], color: "#99ff33" },
+     { range: [100, 110 ], color: "#ccff66" },
+     { range: [110, 120], color: "#ccff33" },
+     { range: [120, 130], color: "#ffff66" },
+     { range: [130, 140], color: "#ffff00" },
+     { range: [140, 150], color: "#ffcc66" },
+     { range: [150, 160], color: "#ff9933" },
+     { range: [160, 170], color: "#ff6600" },
+     { range: [170, 180], color: "#ff3300" },
+     { range: [180, 190], color: "#ff0000" },
+     { range: [190, 200], color: "#ff0066" },
+     { range: [200, 210], color: "#ff3399" }
     
              ],
     threshold: {
-       value: decibel
+       value: bpm
      }
    }
  }
 ]; 
-var gaugeLayout = {  width: 600, 
-                height: 400, 
-                margin: { t: 0, b: 0 }, 
+var gaugeLayout = {  width: 800, 
+                height: 800, 
+                margin: { t: 10, b: 0 }, 
                  };
 
 Plotly.newPlot('gauge', gaugeData, gaugeLayout); 

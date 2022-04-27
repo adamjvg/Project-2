@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=2.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>PROJECT 2</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel='stylesheet' href='static/css/style.css'>
 </head>
 
 <body>
@@ -14,12 +15,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>Fairly straightforward</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+        <h1>Project 2</h1>
+        <h3>Douglas Robertson, Angadjeet Sanghera, Adam Van Geleuken</3>
+          
+        <p><br>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-12 text-center">
         <div class="well">
           <h5>Pick A Song!</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -31,16 +34,11 @@
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-6">
         <div id="bar"></div>
       </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-md-12">
-        <div id="bubble"></div>
+        <div id="gauge"></div>
       </div>
     </div>
   </div>

@@ -13,7 +13,7 @@ function metadataTable(songTitle) {
             return d.title === songTitle;
         });
         // Console log to see if object can be found
-        console.log(selectedSong);
+            // console.log(selectedSong);
                 
         // Variables for object metadata
         tableArray = {
@@ -40,17 +40,10 @@ function metadataTable(songTitle) {
 }
 
 // Create barChart function
-function barChart(songTitle) {
+function barChart(genre) {
     var barChart = d3.select('#bar');
     barChart.html('');
-    songData.then((data) => {
-        var selectedSong = data.find(d => {
-            return d.title === songTitle;
-        });
-    // Console log to see if object can be found
-        // console.log(selectedSong);
-
-    });
+    
 }
 
 // Feed user selection into functions
@@ -61,19 +54,36 @@ function optionChanged(songTitle) {
 // Define init function
 function init() {
     var selector = d3.select('#selDataset');
+    var genreSelector = d3.select('#selGenre');
+    songGenre = [];
 
     songData.then(function(data) {
         data.forEach((d) => {
             var songTitle = d.title;
             // var uniqueID = d.uniqueID;
                 selector
-                .append('option')
-                .text(songTitle)
-                .property('value', songTitle);
+                    .append('option')
+                    .text(songTitle)
+                    .property('value', songTitle);
+
+            var genreToFind = d.topgenre;
+            var isGenrePresent = songGenre.some((g) =>
+                g === d.topgenre);
+            
+            if (!isGenrePresent) {
+                songGenre.push(genreToFind);
+            }
         });
+        songGenre.forEach((g) => {
+            genreSelector
+                .append('option')
+                .text(g.toUpperCase())
+                .property('value', g);
+        });
+        
         // Generate first table info
         metadataTable(data[0].title);
-    });
+    });    
 }
 
 init();

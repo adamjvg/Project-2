@@ -36,7 +36,7 @@
       </div>
       <div class="col-md-6">
         <div id="bar">
-          <select id="selGenre"></select>
+          <select id="selGenre" onchange="genreChanged(this.value)"></select>
           <select id="selMeasurement">
             <option value="BPM">BPM</option>
             <option value="Danceability">Danceability</option>
@@ -44,6 +44,7 @@
             <option value="Speech">Speech</option>
             <option value="Positivity">Positivity</option>
           </select>
+          <div id="chartdiv"></div>
         </div>
       </div>
       <div class="col-md-12">
@@ -54,6 +55,10 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+  <script src="static/js/amchart.js"></script>
   <script src="static/js/app.js"></script>
   <!-- <script src="static/js/gauge.js"></script> -->
   <!-- <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>

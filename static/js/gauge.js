@@ -76,8 +76,8 @@ function metadataTable(songTitle) {
             }
         }
         ]; 
-var gaugeLayout1 = {  width: 800, 
-                height: 800, 
+var gaugeLayout1 = {  width: 600, 
+                height: 600, 
                 margin: { t: 10, b: 0 }, 
                  };
                 
@@ -92,26 +92,40 @@ var bpm = selectedSong.bpm;
 var graphDisplay = d3.select("#bargraph");
 graphDisplay.html("");
 
+var xvalue = ['BPM', 'Danceability', 'Energy','Speech','Positivity'];
+var yvalue = [bpm, danceability, energy, speech, positivity];
 
 var data1 = [
 {
-  x: [bpm, danceability, energy, speech, positivity],
-  y: ['BPM', 'Danceability', 'Energy','Speech','Positivity'],
-  type: 'bar'
+  y: yvalue,
+  x: xvalue,
+  type: 'bar',
+//   text: yvalue.map(String),
+  textposition: 'auto',
+  
+  marker: {
+    color: ['rgba(0,128,0,1)', 'rgba(255,255,0,1)','rgba(255,125,0,1)', 'rgba(255,0,0,1)', 'rgba(255,0,125,1)'],
+    opacity: 0.6,
+    line: {
+      color: 'rgb(0,0,0)',
+      width: 2
+    }
+  }  
 }
 ];
 
 var layout = {
-title: 'Song Summary',
+title: 'Summary',
 font:{
-  family: 'Raleway, sans-serif'
+  family: 'Raleway, sans-serif',
+  size: 12
 },
 showlegend: false,
 xaxis: {
-  tickangle: -45
+  tickangle: -90
 },
 yaxis: {
-  zeroline: false,
+  zeroline: true,
   gridwidth: 2
 },
 bargap :0.05

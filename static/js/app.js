@@ -37,27 +37,16 @@ function metadataTable(songTitle) {
     });
 }
 
-// Create barChart function
-
-
 // Feed user selection into functions
 function optionChanged(songTitle) {
     metadataTable(songTitle);
 }
 
-// function genreChanged(genre) {
-//     songData.then((g) => {
-//         genreData = g.filter(d => 
-//             d.topgenre === genre);
-//     });
-// }
-
 // Define init function
 function init() {
     var selector = d3.select('#selDataset');
     var genreSelector = d3.select('#selGenre');
-    songGenre = [];
-    // genreData = [];
+    genreDropdown = [];
 
     songData.then(function(data) {
         data.forEach((d) => {
@@ -69,14 +58,14 @@ function init() {
                     .property('value', songTitle);
 
             var genreToFind = d.topgenre;
-            var isGenrePresent = songGenre.some((g) =>
+            var isGenrePresent = genreDropdown.some((g) =>
                 g === d.topgenre);
             
             if (!isGenrePresent) {
-                songGenre.push(genreToFind);
+                genreDropdown.push(genreToFind);
             }
         });
-        songGenre.forEach((g) => {
+        genreDropdown.forEach((g) => {
             genreSelector
                 .append('option')
                 .text(g.toUpperCase())
@@ -85,6 +74,7 @@ function init() {
         
         // Generate first table info
         metadataTable(data[0].title);
+        genreChanged(data[0].topgenre);
     });
 }
 

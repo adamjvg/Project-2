@@ -34,15 +34,15 @@
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div id="bar">
-          <select id="selGenre" onchange="genreChanged(this.value)"></select>
-          <select id="selMeasurement">
-            <option value="BPM">BPM</option>
-            <option value="Danceability">Danceability</option>
-            <option value="Energy">Energy</option>
-            <option value="Speech">Speech</option>
-            <option value="Positivity">Positivity</option>
+          <select id="selGenre" onchange="updateGraph(this.value, document.getElementById('selMeasurement').value)"></select>
+          <select id="selMeasurement" onchange="updateGraph(document.getElementById('selGenre').value, this.value)">
+            <option value="bpm">BPM</option>
+            <option value="dnce">Danceability</option>
+            <option value="nrgy">Energy</option>
+            <option value="spch">Speech</option>
+            <option value="val">Positivity</option>
           </select>
           <div id="chartdiv"></div>
         </div>

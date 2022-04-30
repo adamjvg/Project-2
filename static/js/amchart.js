@@ -1,34 +1,22 @@
-genreSongList = []
-data = []
+var series;
+var yAxis;
 
-function genreChanged(genre) {
-  genreSongList = [];
-  songData.then((g) => {
-    genreSongList = g.filter(d => 
-          d.topgenre === genre);
-      // console.log(genreSongList);
-      genreSongList.push()
-  });
-  return genreSongList;
-}
+function updateGraph(genre, measurement) {
+  songData.then((tracks) => {
+    var data = tracks
+      .filter(d => d.topgenre === genre)
+      .map(d => ({
+        track: `${d.artist} - ${d.title}`,
+        value: d[measurement]
+      }))
+      .sort((a, b) => a.value - b.value);
 
-function updateGenreData() {
-  data = []
-  genreSongList.then(function(data) {
-    data.forEach((d) => {
-      arrayItem = {
-        'Song Title': d.title,
-        'Artist': d.artist,
-        'BPM': d.bpm,
-        'Danceability': d.dnce,
-        'Energy': d.nrgy,
-        'Speech': d.spch,
-        'Positivity': d.val
-      }
-      data.push(arrayItem);
-    });
+      console.log(data);
+
+    yAxis.data.setAll(data);
+    series.data.setAll(data);
+    sortCategoryAxis();
   });
-  return data;
 }
 
 am5.ready(function() {
@@ -49,13 +37,13 @@ am5.ready(function() {
   // https://www.amcharts.com/docs/v5/charts/xy-chart/
   var chart = root.container.children.push(am5xy.XYChart.new(root, {
     panX: false,
-    panY: false,
+    panY: true,
     wheelX: "none",
-    wheelY: "none"
+    wheelY: "panY"
   }));
 
   // We don't want zoom-out button to appear while animating, so we hide it
-  chart.zoomOutButton.set("forceHidden", true);
+  chart.zoomOutButton.set("forceHidden", false);
 
 
   // Create axes
@@ -64,9 +52,9 @@ am5.ready(function() {
     minGridDistance: 30
   });
 
-  var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
     maxDeviation: 0,
-    categoryField: "network",
+    categoryField: "track",
     renderer: yRenderer,
     tooltip: am5.Tooltip.new(root, { themeTags: ["axis"] })
   }));
@@ -81,12 +69,12 @@ am5.ready(function() {
 
   // Add series
   // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-  var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+  series = chart.series.push(am5xy.ColumnSeries.new(root, {
     name: "Series 1",
     xAxis: xAxis,
     yAxis: yAxis,
     valueXField: "value",
-    categoryYField: "network",
+    categoryYField: "track",
     tooltip: am5.Tooltip.new(root, {
       pointerOrientation: "left",
       labelText: "{valueX}"
@@ -100,7 +88,7 @@ am5.ready(function() {
     cornerRadiusBR: 5
   });
 
-  // Make each column to be of a different color
+  // Set each column to be of a different color
   series.columns.template.adapters.add("fill", function(fill, target) {
     return chart.get("colors").getIndex(series.columns.indexOf(target));
   });
@@ -109,48 +97,33 @@ am5.ready(function() {
     return chart.get("colors").getIndex(series.columns.indexOf(target));
   });
 
-
-  // Set data
-  var data = updateGenreData();
-  
-  // var data = [
-  //   {
-  //     "network": "Facebook",
-  //     "value": 2255250000
-  //   },
-  // ];
-
-  yAxis.data.setAll(data);
-  series.data.setAll(data);
-  sortCategoryAxis();
-
-  // Get series item by category
-  function getSeriesItem(category) {
-    for (var i = 0; i < series.dataItems.length; i++) {
-      var dataItem = series.dataItems[i];
-      if (dataItem.get("categoryY") == category) {
-        return dataItem;
-      }
-    }
-  }
-
   chart.set("cursor", am5xy.XYCursor.new(root, {
-    behavior: "none",
+    behavior: "zoomY",
     xAxis: xAxis,
     yAxis: yAxis
   }));
+  
+  chart.set("scrollbarY", am5.Scrollbar.new(root, {
+    orientation: "vertical"
+  }));
 
+  // Make stuff animate on load
+  // https://www.amcharts.com/docs/v5/concepts/animations/
+  series.appear(1000);
+  chart.appear(1000, 100);
 
-  // Axis sorting
-  function sortCategoryAxis() {
+}); // end am5.ready()
 
-  // Sort by value
+// Axis sorting
+function sortCategoryAxis() {
+
+  // // Sort by value
   series.dataItems.sort(function(x, y) {
     return x.get("valueX") - y.get("valueX"); // descending
     //return y.get("valueY") - x.get("valueX"); // ascending
   })
 
-  // Go through each axis item
+  // // Go through each axis item
   am5.array.each(yAxis.dataItems, function(dataItem) {
     // get corresponding series item
     var seriesDataItem = getSeriesItem(dataItem.get("category"));
@@ -180,37 +153,14 @@ am5.ready(function() {
   yAxis.dataItems.sort(function(x, y) {
     return x.get("index") - y.get("index");
   });
+}
+
+// Get series item by category
+function getSeriesItem(category) {
+  for (var i = 0; i < series.dataItems.length; i++) {
+    var dataItem = series.dataItems[i];
+    if (dataItem.get("categoryY") == category) {
+      return dataItem;
+    }
   }
-
-
-  // update data with random values each 1.5 sec
-  // setInterval(function () {
-  //   updateData();
-  // }, 1500)
-
-  // function updateData() {
-  //   am5.array.each(series.dataItems, function (dataItem) {
-  //     var value = dataItem.get("valueX") + Math.round(Math.random() * 1000000000 - 500000000);
-  //     if (value < 0) {
-  //       value = 500000000;
-  //     }
-  //     // both valueY and workingValueY should be changed, we only animate workingValueY
-  //     dataItem.set("valueX", value);
-  //     dataItem.animate({
-  //       key: "valueXWorking",
-  //       to: value,
-  //       duration: 600,
-  //       easing: am5.ease.out(am5.ease.cubic)
-  //     });
-  //   })
-
-  //   sortCategoryAxis();
-  // }
-
-
-  // Make stuff animate on load
-  // https://www.amcharts.com/docs/v5/concepts/animations/
-  series.appear(1000);
-  chart.appear(1000, 100);
-
-}); // end am5.ready()
+}

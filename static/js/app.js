@@ -74,7 +74,7 @@ function init() {
         
         // Generate first table info
         metadataTable(data[0].title);
-        genreChanged(data[0].topgenre);
+        updateGraph(document.getElementById('selGenre').value, document.getElementById('selMeasurement').value);
     });
 }
 

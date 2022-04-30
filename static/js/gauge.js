@@ -82,6 +82,43 @@ var gaugeLayout1 = {  width: 800,
                  };
                 
 Plotly.newPlot('gauge1', gaugeData1, gaugeLayout1); 
+
+var bpm = selectedSong.bpm;
+        var danceability = selectedSong.dnce;
+        var energy = selectedSong.nrgy;
+        var speech = selectedSong.spch;
+        var positivity = selectedSong.val;
+// bar chart
+var graphDisplay = d3.select("#bargraph");
+graphDisplay.html("");
+
+
+var data1 = [
+{
+  x: [bpm, danceability, energy, speech, positivity],
+  y: ['BPM', 'Danceability', 'Energy','Speech','Positivity'],
+  type: 'bar'
+}
+];
+
+var layout = {
+title: 'Song Summary',
+font:{
+  family: 'Raleway, sans-serif'
+},
+showlegend: false,
+xaxis: {
+  tickangle: -45
+},
+yaxis: {
+  zeroline: false,
+  gridwidth: 2
+},
+bargap :0.05
+};
+
+Plotly.newPlot('bargraph', data1, layout);
+
 });
                 
     };

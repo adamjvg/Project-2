@@ -1,3 +1,8 @@
+#chartdiv {
+    width: 100%;
+    height: 500px;
+  }
+
  .well {width: 100%;
     border: 1px solid #333;
     box-shadow: 8px 8px 5px rgb(111, 111, 111);
@@ -14,15 +19,16 @@
     background: #337ab7;
   }
 
-  .wrapper {
+.wrapper {
     position: relative;
     min-height: 100%;
     padding-bottom: 130px;
-    overflow: auto;}
+    overflow: auto;
+  }
 
 .jumbotron{
   border: 1px solid #333;
     box-shadow: 8px 8px 5px rgb(111,111,111);
     padding: 8px 12px;
     background-image: linear-gradient(deg, #fff, #ddd 40%, rgb(237, 237, 237));
-}
+  }

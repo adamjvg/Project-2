@@ -1,7 +1,7 @@
 
 var url = "http://127.0.0.1:5000/data";
-var json = "/data/data.json"
-songData = d3.json(json)
+// var json = "/data/data.json"
+songData = d3.json(url)
 
 // Function to generate metadata table
 function metadataTable(songTitle) {

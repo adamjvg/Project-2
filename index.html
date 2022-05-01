@@ -19,6 +19,7 @@
         <h3>Douglas Robertson, Angadjeet Sanghera, Adam Van Geleuken</3>
           
         <p><br>Use the interactive charts below to explore the dataset</p>
+        <p> Click <a href= "wordcloud.html"> here </a>for a word cloud</p>
       </div>
     </div>
     <div class="row">
@@ -34,6 +35,7 @@
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
+
       <div class="col-md-12">
         <div id="bar">
           <select id="selGenre" onchange="updateGraph(this.value, document.getElementById('selMeasurement').value)"></select>
@@ -48,11 +50,10 @@
         </div>
       </div>
       <div class="col-md-12">
-        <div id="gauge"></div>
+        <div id="gauge1"></div>
       </div>
     </div>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
@@ -60,9 +61,7 @@
   <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
   <script src="static/js/amchart.js"></script>
   <script src="static/js/app.js"></script>
-  <!-- <script src="static/js/gauge.js"></script> -->
-  <!-- <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script type="text/javascript" src="d3gauge.js" charset="utf-8"></script> -->
+  <script src="static/js/gauge.js"></script>
 </body>
 
 </html>

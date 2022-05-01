@@ -1,7 +1,6 @@
-
 var url = "http://127.0.0.1:5000/data";
-// var json = "/data/data.json"
-songData = d3.json(url)
+var json = "/data/data.json"
+songData = d3.json(json)
 
 // Function to generate metadata table
 function metadataTable(songTitle) {
@@ -37,20 +36,19 @@ function metadataTable(songTitle) {
             infoBox.append('p').text(`${key}: ${value}`);
         });
         infoBoxTitle.text(`${selectedSong.artist} - ${selectedSong.title}`);
-         
-        
-// Gauge Chart 1
-        var gaugeDisplay1 = d3.select("#gauge1");
-            gaugeDisplay1.html(""); 
-        var bpm = selectedSong.bpm;
 
-        var gaugeData1 = [
-        {
+        // Gauge Chart 2
+        var gaugeDisplay2 = d3.select("#gauge2");
+            gaugeDisplay2.html("");
+        var nrg = selectedSong.nrgy;
+
+        var gaugeData2 = [
+            {
             domain: { x: [0, 1], y: [0, 1] },
-            value: bpm,
-            title: { text: "<b>Speed! </b><br> In Beats Per Minute " },
+            value: nrg,
+            title: { text: "<b>Energy!</b>" },
             type: "indicator",
-            mode: "gauge+number",     
+            mode: "gauge+number",
             gauge: {
                 axis: { range: [70,210] },
                 bar: { color: "ECEBE8" },
@@ -71,54 +69,39 @@ function metadataTable(songTitle) {
                     { range: [200, 210], color: "#ff3399" }
                 ],
                 threshold: {
-                value: bpm
+                value: nrg
                 }
             }
         }
         ]; 
-var gaugeLayout1 = {  width: 800, 
+var gaugeLayout2 = {  width: 800, 
                 height: 800, 
                 margin: { t: 10, b: 0 }, 
-                 };
-                
-Plotly.newPlot('gauge1', gaugeData1, gaugeLayout1); 
+                 };     
+Plotly.newPlot('gauge2', gaugeData2, gaugeLayout2); 
 });
-                
     };
                 
-// Feed user selection into functions
-function optionChanged(songTitle) {
-    metadataTable(songTitle);
-}
-//init function
-function init() {
-    var selector = d3.select('#selDataset');
-    var genreSelector = d3.select('#selGenre');
-    songGenre = [];
-
-    songData.then(function(data) {
-        data.forEach((d) => {
-            var songTitle = d.title;
-            // var uniqueID = d.uniqueID;
-                selector
-                .append('option')
-                .text(songTitle)
-                .property('value', songTitle);
-
-            var genreToFind = d.topgenre;
-            var isGenrePresent = songGenre.some((g) =>
-                g === d.topgenre);
-            
-            if (!isGenrePresent) {
-                songGenre.push(genreToFind);
-            }
-        });
-
-        
-
+    // Feed user selection into functions
+    function optionChanged(songTitle) {
+        metadataTable(songTitle);
+    }
+    //init function
+    function init() {
+        var selector = d3.select('#selDataset');
+    
+        songData.then(function(data) {
+            data.forEach((d) => {
+                var song = d.title;
+                    selector
+                    .append('option')
+                    .text(song)
+                    .property('value', song);
+            });
         // Generate first table info
-        metadataTable(data[0].title);
+        metadataTable(data[0].dB);
     });
-}
-
-init;
+    }
+    
+    
+    init();

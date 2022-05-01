@@ -1,46 +1,18 @@
-// Function to generate metadata table
-function metadataTable(songTitle) {
-    var infoBoxTitle = d3.select('.panel-title');
-        infoBoxTitle.html('');
-    var infoBox = d3.select('#sample-metadata');
-        infoBox.html('');
-
+// Function to generate BPM gauge
+function bpmGauge(songTitle) {
     songData.then((data) => {
         var selectedSong = data.find(d => {
             return d.title === songTitle;
         });
-        // Console log to see if object can be found
-        console.log(selectedSong);
-                
-        // Variables for object metadata
-        tableArray = {
-            // 'Song Title': selectedSong.title,
-            'Artist': selectedSong.artist,
-            'Duration': `${(selectedSong.dur / 60).toFixed(2)} minutes`,
-            'Year Released': selectedSong.yearreleased,
-            'BPM': selectedSong.bpm,
-            'Decibel Level': selectedSong.dB,
-            'Acoustic': selectedSong.acous,
-            'Danceability': selectedSong.dnce,
-            'Energy': selectedSong.nrgy,
-            'Speech': selectedSong.spch,
-            'Genre': selectedSong.topgenre.toUpperCase(),
-            'Positivity': selectedSong.val
-        }
 
-        // Update Table
-        Object.entries(tableArray).forEach(([key, value]) => {
-            infoBox.append('p').text(`${key}: ${value}`);
-        });
-        infoBoxTitle.text(`${selectedSong.artist} - ${selectedSong.title}`);
-         
-        
-        // Gauge Chart 1
+        // Gauge Chart
         var gaugeDisplay1 = d3.select("#gauge1");
             gaugeDisplay1.html("");
-            
+
+        // BPM variable for gauge
         var bpm = selectedSong.bpm;
 
+        // Gauge Data
         var gaugeData1 = [{
             domain: { x: [0, 1], y: [0, 1] },
             value: bpm,
@@ -72,15 +44,13 @@ function metadataTable(songTitle) {
             }
         }]; 
 
+        // Gauge Layout
         var gaugeLayout1 = {  width: 600, 
             height: 600, 
             margin: { t: 10, b: 0 }, 
         };
-                
+
+        // Generate Plotly
         Plotly.newPlot('gauge1', gaugeData1, gaugeLayout1); 
-
-        barChart(songTitle);
-
     });
-                
 };

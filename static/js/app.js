@@ -9,7 +9,7 @@ function metadataTable(songTitle) {
 
     var infoBox = d3.select('#sample-metadata');
     infoBox.html('');
-    
+
     songData.then((data) => {
         var selectedSong = data.find(d => {
             return d.title === songTitle;
@@ -42,6 +42,8 @@ function metadataTable(songTitle) {
 // Feed user selection into functions
 function optionChanged(songTitle) {
     metadataTable(songTitle);
+    bpmGauge(songTitle);
+    barChart(songTitle);
 }
 
 // Define init function
@@ -51,7 +53,6 @@ function init() {
     songData.then(function(data) {
         data.forEach((d) => {
             var songTitle = d.title;
-            // var uniqueID = d.uniqueID;
                 selector
                     .append('option')
                     .text(songTitle)
@@ -59,7 +60,7 @@ function init() {
         });
         
         // Generate first table info
-        metadataTable(data[0].title);
+        optionChanged(data[0].title);
     });
 }
 

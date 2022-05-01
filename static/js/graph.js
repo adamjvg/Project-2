@@ -1,32 +1,25 @@
+// Function to generate bar chart
 function barChart(songTitle) {
   songData.then((data) => {
     var selectedSong = data.find(d => {
       return d.title === songTitle;
     });
-    
-    // Console log to see if object can be found
-    console.log(selectedSong);
-            
+
+    // Variables for barchart
     var bpm = selectedSong.bpm;
     var danceability = selectedSong.dnce;
     var energy = selectedSong.nrgy;
     var speech = selectedSong.spch;
     var positivity = selectedSong.val;
 
-    // Console to see if values retrieved
-    console.log(bpm);
-    console.log(danceability);
-    console.log(energy);
-    console.log(speech);
-    console.log(positivity);
-
-    // bar chart
+    // Bar chart
     var graphDisplay = d3.select("#bargraph");
     graphDisplay.html("");
 
     var xvalue = ['BPM', 'Danceability', 'Energy', 'Speech', 'Positivity'];
     var yvalue = [bpm, danceability, energy, speech, positivity];
 
+    // Chart Data
     var data1 = [{
       y: yvalue,
       x: xvalue,
@@ -44,6 +37,7 @@ function barChart(songTitle) {
       }
     }];
 
+    // Chart Layout
     var layout = {
       title: 'Summary',
       font:{
@@ -60,7 +54,8 @@ function barChart(songTitle) {
       },
       bargap :0.05
     };
-      
+
+    // Generate Plotly
     Plotly.newPlot('bargraph', data1, layout);
   });
 }

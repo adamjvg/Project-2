@@ -14,14 +14,12 @@
         <div class="container">
             <div class="col-md-12 jumbotron text-center">
                 <h1>Genre Chart</h1>
-                <p>Use the dropdown options below to select all songs in a genre and compare their features!</p>
-                <p>Click <a href= "wordcloud.html">here</a> for a word cloud</p>
             </div>
         
             <div class="row">
                 <div class="col-md-12">
                     <div class="well">
-                        <h5>Pick A Song!</h5>
+                        <h5>Select a genre to see all songs and compare their features!</h5>
                         <select id="selGenre" onchange="updateGraph(this.value, document.getElementById('selMeasurement').value)"></select>
                         <select id="selMeasurement" onchange="updateGraph(document.getElementById('selGenre').value, this.value)">
                             <option value="bpm">BPM</option>

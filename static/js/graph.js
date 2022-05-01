@@ -24,7 +24,6 @@ function barChart(songTitle) {
       y: yvalue,
       x: xvalue,
       type: 'bar',
-      //   text: yvalue.map(String),
       textposition: 'auto',
     
       marker: {

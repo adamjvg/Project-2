@@ -16,7 +16,7 @@ function bpmGauge(songTitle) {
         var gaugeData1 = [{
             domain: { x: [0, 1], y: [0, 1] },
             value: bpm,
-            title: { text: "<b>Speed! </b><br> In Beats Per Minute " },
+            title: { text: "<b>Speed!</b><br>In Beats Per Minute" },
             type: "indicator",
             mode: "gauge+number",     
             gauge: {

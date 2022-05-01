@@ -1,15 +1,17 @@
-// var url = 'http://127.0.0.1:5000/data';
-var url = '/data/data.json'
+// Api for use in deployment
+var url = 'http://127.0.0.1:5000/data';
+// For use in development
+    // var url = '/data/data.json'
 songData = d3.json(url)
 
 // Function to generate metadata table
 function metadataTable(songTitle) {
     var infoBoxTitle = d3.select('.panel-title');
     infoBoxTitle.html('');
-
     var infoBox = d3.select('#sample-metadata');
     infoBox.html('');
 
+    // Wait for API response then generate metadata table based on user selection
     songData.then((data) => {
         var selectedSong = data.find(d => {
             return d.title === songTitle;
@@ -17,8 +19,6 @@ function metadataTable(songTitle) {
                 
         // Variables for object metadata
         tableArray = {
-            // 'Song Title': selectedSong.title,
-            // 'Artist': selectedSong.artist,
             'Duration': `${(selectedSong.dur / 60).toFixed(2)} minutes`,
             'Year Released': selectedSong.yearreleased,
             'BPM': selectedSong.bpm,
@@ -31,7 +31,7 @@ function metadataTable(songTitle) {
             'Positivity': selectedSong.val
         }
 
-        // Update Table
+        // Update Table with current selected song data
         Object.entries(tableArray).forEach(([key, value]) => {
             infoBox.append('p').text(`${key}: ${value}`);
         });
@@ -50,6 +50,7 @@ function optionChanged(songTitle) {
 function init() {
     var selector = d3.select('#selDataset');
 
+    // Wait for API response then generate dropdown options
     songData.then(function(data) {
         data.forEach((d) => {
             var songTitle = d.title;
@@ -64,4 +65,5 @@ function init() {
     });
 }
 
+// Call init
 init();

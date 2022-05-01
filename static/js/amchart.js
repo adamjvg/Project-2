@@ -1,10 +1,14 @@
-// var url = 'http://127.0.0.1:5000/data';
-var url = '/data/data.json'
+// Api for use in deployment
+var url = 'http://127.0.0.1:5000/data';
+// For use in development
+    // var url = '/data/data.json'
 songData = d3.json(url)
 
+// Globalisating variables so they can be updated
 var series;
 var yAxis;
 
+// Function to update graph when called
 function updateGraph(genre, measurement) {
   songData.then((tracks) => {
     var data = tracks
@@ -21,6 +25,7 @@ function updateGraph(genre, measurement) {
   });
 }
 
+// Amchart function which generates graph
 am5.ready(function() {
 
   // Create root element
@@ -167,10 +172,12 @@ function getSeriesItem(category) {
   }
 }
 
+// Init function to be run on pageload
 function init() {
   var genreSelector = d3.select('#selGenre');
   genreDropdown = [];
 
+  // Wait for API response then generate unique dropdown options
   songData.then(function(data) {
     data.forEach((d) => {
       var genreToFind = d.topgenre;
@@ -182,6 +189,7 @@ function init() {
       }
     });
 
+    // Populate dropdown list
     genreDropdown.forEach((g) => {
       genreSelector
         .append('option')
@@ -189,6 +197,7 @@ function init() {
         .property('value', g);
     });
 
+    // Generate first graph
     updateGraph(
       document.getElementById('selGenre').value,
       document.getElementById('selMeasurement').value
@@ -196,4 +205,5 @@ function init() {
   });
 }
 
+// Call init
 init();

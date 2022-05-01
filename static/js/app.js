@@ -5,9 +5,11 @@ songData = d3.json(url)
 // Function to generate metadata table
 function metadataTable(songTitle) {
     var infoBoxTitle = d3.select('.panel-title');
-        infoBoxTitle.html('');
+    infoBoxTitle.html('');
+
     var infoBox = d3.select('#sample-metadata');
-        infoBox.html('');
+    infoBox.html('');
+    
     songData.then((data) => {
         var selectedSong = data.find(d => {
             return d.title === songTitle;
@@ -45,8 +47,6 @@ function optionChanged(songTitle) {
 // Define init function
 function init() {
     var selector = d3.select('#selDataset');
-    var genreSelector = d3.select('#selGenre');
-    genreDropdown = [];
 
     songData.then(function(data) {
         data.forEach((d) => {
@@ -56,25 +56,10 @@ function init() {
                     .append('option')
                     .text(songTitle)
                     .property('value', songTitle);
-
-            var genreToFind = d.topgenre;
-            var isGenrePresent = genreDropdown.some((g) =>
-                g === d.topgenre);
-            
-            if (!isGenrePresent) {
-                genreDropdown.push(genreToFind);
-            }
-        });
-        genreDropdown.forEach((g) => {
-            genreSelector
-                .append('option')
-                .text(g.toUpperCase())
-                .property('value', g);
         });
         
         // Generate first table info
         metadataTable(data[0].title);
-        updateGraph(document.getElementById('selGenre').value, document.getElementById('selMeasurement').value);
     });
 }
 

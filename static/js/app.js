@@ -1,5 +1,5 @@
 // Api for use in deployment
-var url = 'http://127.0.0.1:5000/data';
+var url = 'http://0.0.0.0:5000/data';
 // For use in development
     // var url = '/data/data.json'
 songData = d3.json(url)

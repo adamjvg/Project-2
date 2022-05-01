@@ -6,8 +6,9 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
-from flask import Flask, jsonify
-from flask_cors import CORS
+from flask import Flask, jsonify, render_template
+# flask cors for local development
+# from flask_cors import CORS
 
 
 #################################################
@@ -27,12 +28,24 @@ Spotify = Base.classes.spotify
 # Flask Setup
 #################################################
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 
 #################################################
 # Flask Routes
 #################################################
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+@app.route("/amchart")
+def amchart():
+    return render_template("amchart.html")
+
+@app.route("/wordcloud")
+def wordcloud():
+    return render_template("wordcloud.html")
+
 @app.route("/data")
 def welcome():
     # Create our session (link) from Python to the DB

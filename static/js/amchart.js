@@ -1,3 +1,7 @@
+// var url = 'http://127.0.0.1:5000/data';
+var url = '/data/data.json'
+songData = d3.json(url)
+
 var series;
 var yAxis;
 
@@ -10,8 +14,6 @@ function updateGraph(genre, measurement) {
         value: d[measurement]
       }))
       .sort((a, b) => a.value - b.value);
-
-      console.log(data);
 
     yAxis.data.setAll(data);
     series.data.setAll(data);
@@ -164,3 +166,34 @@ function getSeriesItem(category) {
     }
   }
 }
+
+function init() {
+  var genreSelector = d3.select('#selGenre');
+  genreDropdown = [];
+
+  songData.then(function(data) {
+    data.forEach((d) => {
+      var genreToFind = d.topgenre;
+      var isGenrePresent = genreDropdown.some((g) =>
+          g === d.topgenre);
+      
+      if (!isGenrePresent) {
+          genreDropdown.push(genreToFind);
+      }
+    });
+
+    genreDropdown.forEach((g) => {
+      genreSelector
+        .append('option')
+        .text(g.toUpperCase())
+        .property('value', g);
+    });
+
+    updateGraph(
+      document.getElementById('selGenre').value,
+      document.getElementById('selMeasurement').value
+      );
+  });
+}
+
+init();

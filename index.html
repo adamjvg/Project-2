@@ -1,74 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=2.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>PROJECT 2</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel='stylesheet' href='static/css/style.css'>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PROJECT 2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel='stylesheet' href='static/css/style.css'>
+  </head>
 
-<body>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>Project 2</h1>
-        <h3>Douglas Robertson, Angadjeet Sanghera, Adam Van Geleuken</3>
-          
-        <p><br>Use the interactive charts below to explore the dataset</p>
-        <p> Click <a href= "wordcloud.html"> here </a>for a word cloud</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <div class="well">
-          <h5>Pick A Song!</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 jumbotron text-center">
+          <h1>Project 2</h1>
+          <h3>Douglas Robertson, Angadjeet Sanghera, Adam Van Geleuken</h3>
+            
+          <p><br>Use the interactive charts below to explore the dataset</p>
+          <p> Click <a href= "wordcloud.html"> here </a>for a word cloud</p>
         </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Track Data</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="well">
+            <h5>Pick A Song!</h5>
+            <select id="selDataset" onchange="optionChanged(this.value)"></select>
           </div>
-          <div id="sample-metadata" class="panel-body"></div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Track Data</h3>
+            </div>
+            <div id="sample-metadata" class="panel-body"></div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div id="gauge1"></div>        
-      </div>
-      <div class="col-md-6">
-      <div id="bargraph">
-      <div class="col-md-12">
-        <div id="bar">
-          <select id="selGenre" onchange="updateGraph(this.value, document.getElementById('selMeasurement').value)"></select>
-          <select id="selMeasurement" onchange="updateGraph(document.getElementById('selGenre').value, this.value)">
-            <option value="bpm">BPM</option>
-            <option value="dnce">Danceability</option>
-            <option value="nrgy">Energy</option>
-            <option value="spch">Speech</option>
-            <option value="val">Positivity</option>
-          </select>
-          <div id="chartdiv"></div>
+        <div class="col-md-6">
+          <div id="gauge1"></div>        
+        </div>
+        <div class="col-md-6">
+          <div id="bargraph"></div>
         </div>
       </div>
     </div>
-    </div>
-    <!-- <div class="row"> -->
-    
-    </div>
-  </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-  <script src="static/js/amchart.js"></script>
-  <script src="static/js/app.js"></script>
-  <script src="static/js/gauge.js"></script>
-  <script src="static/js/graph.js"></script>
-</body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <script src="static/js/app.js"></script>
+    <script src="static/js/gauge.js"></script>
+    <script src="static/js/graph.js"></script>
+  </body>
 
 </html>

@@ -35,7 +35,11 @@
           <div id="sample-metadata" class="panel-body"></div>
         </div>
       </div>
-
+      <div class="col-md-6">
+        <div id="gauge1"></div>        
+      </div>
+      <div class="col-md-6">
+      <div id="bargraph">
       <div class="col-md-12">
         <div id="bar">
           <select id="selGenre" onchange="updateGraph(this.value, document.getElementById('selMeasurement').value)"></select>
@@ -49,10 +53,12 @@
           <div id="chartdiv"></div>
         </div>
       </div>
-      <div class="col-md-12">
-        <div id="gauge1"></div>
-      </div>
     </div>
+    </div>
+    <!-- <div class="row"> -->
+    
+    </div>
+  </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -62,6 +68,7 @@
   <script src="static/js/amchart.js"></script>
   <script src="static/js/app.js"></script>
   <script src="static/js/gauge.js"></script>
+  <script src="static/js/graph.js"></script>
 </body>
 
 </html>

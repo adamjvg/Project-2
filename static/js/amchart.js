@@ -88,6 +88,20 @@ am5.ready(function() {
     })
   }));
 
+  var cellSize = 30;
+  series.events.on("datavalidated", function(ev) {
+
+    var series = ev.target;
+    var chart = series.chart;
+    var xAxis = chart.xAxes.getIndex(0);
+
+    // Calculate how we need to adjust chart height
+    var chartHeight = series.data.length * cellSize + xAxis.height() + chart.get("paddingTop", 0) + chart.get("paddingBottom", 0);
+
+    // Set it on chart's container
+    chart.root.dom.style.height = chartHeight + "px";
+  });
+
 
   // Rounded corners for columns
   series.columns.template.setAll({

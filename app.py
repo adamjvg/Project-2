@@ -7,8 +7,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify, render_template
-# flask cors for local development
-# from flask_cors import CORS
+from flask_cors import CORS
 
 
 #################################################
@@ -28,7 +27,7 @@ Spotify = Base.classes.spotify
 # Flask Setup
 #################################################
 app = Flask(__name__)
-# CORS(app)
+CORS(app)
 
 
 #################################################

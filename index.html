@@ -40,7 +40,18 @@
       </div>
       <div class="col-md-6">
       <div id="bargraph">
-
+      <div class="col-md-12">
+        <div id="bar">
+          <select id="selGenre" onchange="updateGraph(this.value, document.getElementById('selMeasurement').value)"></select>
+          <select id="selMeasurement" onchange="updateGraph(document.getElementById('selGenre').value, this.value)">
+            <option value="bpm">BPM</option>
+            <option value="dnce">Danceability</option>
+            <option value="nrgy">Energy</option>
+            <option value="spch">Speech</option>
+            <option value="val">Positivity</option>
+          </select>
+          <div id="chartdiv"></div>
+        </div>
       </div>
     </div>
     </div>
@@ -49,14 +60,15 @@
     </div>
   </div>
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+  <script src="static/js/amchart.js"></script>
   <script src="static/js/app.js"></script>
   <script src="static/js/gauge.js"></script>
   <script src="static/js/graph.js"></script>
-  
-
 </body>
 
 </html>
